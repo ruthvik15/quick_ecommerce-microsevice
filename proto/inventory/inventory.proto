@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package inventory;
+
+option go_package = "github.com/ruthvik15/ecommerce_microservice/proto/inventory";
+
+service InventoryService {
+  // Check if items are available and deduct them
+rpc DeductStock (DeductStockRequest) returns (DeductStockResponse);
+  
+  // Compensating transaction: Add items back if payment fails
+  rpc AddStock (AddStockRequest) returns (AddStockResponse);
+}
+
+message Item {
+  string product_id = 1;
+  int32 quantity = 2;
+}
+
+message DeductStockRequest {
+  string order_id = 1;
+  repeated Item items = 2;
+}
+
+message DeductStockResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+message AddStockRequest {
+  string order_id = 1;
+  repeated Item items = 2;
+}
+
+message AddStockResponse {
+  bool success = 1;
+}

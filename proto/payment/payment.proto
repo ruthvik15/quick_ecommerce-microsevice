@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package payment;
+
+option go_package = "github.com/ruthvik15/ecommerce_microservice/proto/payment";
+
+service PaymentService {
+  rpc Charge (ChargeRequest) returns (ChargeResponse);
+}
+
+message ChargeRequest {
+  string order_id = 1;
+  double amount = 2;
+  string user_id = 3;
+}
+
+message ChargeResponse {
+  bool success = 1;
+  string transaction_id = 2;
+}
