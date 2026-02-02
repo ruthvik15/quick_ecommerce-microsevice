@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package order;
+
+option go_package = "github.com/ruthvik15/ecommerce_microservice/proto/order";
+
+import "proto/inventory/inventory.proto";
+
+service OrderService {
+  // Saga entry point
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+}
+
+message CreateOrderRequest {
+  string user_id = 1;
+  repeated inventory.Item items = 2;
+  double total_amount = 3;
+}
+
+message CreateOrderResponse {
+  string order_id = 1;
+  string status = 2; // PENDING, CONFIRMED, FAILED
+}
